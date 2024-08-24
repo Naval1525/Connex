@@ -1,5 +1,5 @@
 import mongoose, { Document, Model } from "mongoose";
-import { IUser } from "./user.model";
+import { IUser } from "./User.model";
 import { IComment } from "./Comment.model";
 export interface IPost{
     description:string,

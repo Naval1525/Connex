@@ -1,7 +1,7 @@
 "use server"
 
 import { Post } from "@/models/Post.model";
-import { IUser } from "@/models/user.model";
+import { IUser } from "@/models/User.model";
 import { currentUser } from "@clerk/nextjs/server"
 import { v2 as cloudinary } from 'cloudinary';
 import connectDB from "./db";
