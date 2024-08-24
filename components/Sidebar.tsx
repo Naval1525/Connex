@@ -1,7 +1,9 @@
 import React from "react";
 import { Profilephoto } from "./shared/Profilephoto";
+import { getAllPosts } from "@/lib/serveractions";
 
-const Sidebar = ({ user }: { user: any }) => {
+const Sidebar = async({ user }: { user: any }) => {
+  const posts = await getAllPosts();
   return (
     <div className="hidden md:block w-[20%] h-fit border border-gray-300 rounded-lg overflow-hidden">
       <div className="flex flex-col items-center relative">
@@ -31,12 +33,12 @@ const Sidebar = ({ user }: { user: any }) => {
       </div>
       <div className="text-xs">
         <div className="w-full flex justify-between items-center px-3 py-2 hover:bg-gray-200 cursor-pointer">
-          <p>Post Impression</p>
-          <p className="text-blue-500 font-bold">88</p>
+          {/* <p>Post Impression</p>
+          <p className="text-blue-500 font-bold">88</p> */}
         </div>
         <div className="w-full flex justify-between items-center px-3 py-2 hover:bg-gray-200 cursor-pointer">
           <p>Posts</p>
-          <p className="text-blue-500 font-bold">0</p>
+          <p className="text-blue-500 font-bold">{posts.length}</p>
         </div>
       </div>
     </div>

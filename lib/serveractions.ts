@@ -48,7 +48,6 @@ export const createPostAction = async (inputText: string, selectedFile: string) 
             })
         }
         revalidatePath("/");
-        
     } catch (error: any) {
         throw new Error(error);
     }
@@ -57,11 +56,9 @@ export const createPostAction = async (inputText: string, selectedFile: string) 
 export const getAllPosts = async () => {
     try {
         await connectDB();
-        const posts = await Post.find().sort({ createdAt: -1 });
-        // if(!posts) return [];
-        return posts;
-        // return JSON.parse(JSON.stringify(posts));
-        
+        const posts = await Post.find().sort({ createdAt: -1 }).populate({ path: 'comments', options: { sort: { createdAt: -1 } } });
+        if(!posts) return [];
+        return JSON.parse(JSON.stringify(posts));
     } catch (error) {
         console.log(error);
     }
@@ -104,7 +101,15 @@ export const createCommentAction = async (postId: string, formData: FormData) =>
         const post = await Post.findById({ _id: postId });
         if (!post) throw new Error('Post not found');
 
-        
+        const comment = await Comment.create({
+            textMessage: inputText,
+            user: userDatabase,
+        });
+
+        post.comments?.push(comment._id);
+        await post.save();
+
+        revalidatePath("/");
     } catch (error) {
         throw new Error('An error occurred')
     }
