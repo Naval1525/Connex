@@ -1,5 +1,5 @@
 
-import { IPostDocument } from '@/models/post.model'
+import { IPostDocument } from '@/models/Post.model'
 import Image from 'next/image'
 import React from 'react'
 
