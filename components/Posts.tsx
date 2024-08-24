@@ -1,7 +1,22 @@
 import React from 'react'
 
-export const Posts = () => {
+
+import { Post } from './Post'
+import { IPostDocument } from '@/models/Post.model'
+
+const Posts = ({ posts }: { posts: IPostDocument[] }) => {
+  
   return (
-    <div>Posts</div>
+    <div>
+      {
+        posts?.map((post) => {
+          return (
+            <Post key={post._id} post={post} />
+          )
+        })
+      }
+    </div>
   )
 }
+
+export default Posts

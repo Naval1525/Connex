@@ -2,21 +2,19 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  DialogDescription, // Import DialogDescription
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Profilephoto } from "./shared/Profilephoto";
 import { Textarea } from "./ui/textarea";
-import Image from "next/image";
-import {  ImageIcon, Images, ImagesIcon } from "lucide-react";
+import { ImageIcon } from "lucide-react";
 import { useRef, useState } from "react";
 import { readFileAsDataUrl } from "@/lib/utils";
-import { ImageConfigContext } from "next/dist/shared/lib/image-config-context.shared-runtime";
-import { createPostAction } from "@/lib/serveractions"
+import Image from "next/image";
+import { Profilephoto } from "./shared/Profilephoto";
+import { createPostAction } from "@/lib/serveractions";
+
 export function Postdailog({
   setopen,
   open,
@@ -26,12 +24,9 @@ export function Postdailog({
   open: any;
   src: String;
 }) {
-    const [inputText, setInputText] = useState<string>("");
-  const changehandler=(e:any )=>{
-    setInputText(e.target.value);
-
-  }
   const inputRef = useRef<HTMLInputElement>(null);
+  const [selectedFile, setSelectedFile] = useState<string>("");
+
   const fileChangehandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files?.[0];
@@ -41,40 +36,44 @@ export function Postdailog({
       }
     }
   };
-  const postActionHandler = async (formData: FormData) => {
-    const inputText = formData.get('inputText') as string;
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault(); // Prevent the default form submission
+
+    const formData = new FormData(e.target as HTMLFormElement);
+    const inputText = formData.get("inputText") as string;
+
     try {
-        await createPostAction(inputText, selectedFile);
+      await createPostAction(inputText, selectedFile);
+      setopen(false);
+      setSelectedFile(""); // Close the dialog after submission
     } catch (error) {
-        console.log('error occurred', error);
+      console.error("Error creating post:", error);
     }
-    setInputText("");
-    setopen(false);
-}
-  const [selectedFile, setSelectedFile] = useState<string>("");
+  };
+
   return (
     <Dialog open={open}>
       <DialogContent
-        className="sm:max-w-[425px] "
+        className="sm:max-w-[425px]"
         onInteractOutside={() => setopen(false)}
       >
         <DialogHeader>
           <DialogTitle className="flex gap-3">
-            <Profilephoto src={src}></Profilephoto>
+            <Profilephoto src={src} />
             <div>
-              <div>
-                <p className="text-sm">Post to anyone</p>
-              </div>
+              <p className="text-sm">Post to anyone</p>
             </div>
           </DialogTitle>
+          <DialogDescription>
+            Share your thoughts, ideas, or any content you want with others.
+          </DialogDescription>
         </DialogHeader>
-        <form action="">
+        <form onSubmit={handleSubmit}>
           <div className="flex flex-col">
             <Textarea
               id="name"
               name="inputText"
-              value="input text "
-              onChange={changehandler }
               className="border-none text-lg focus-visible:ring-1"
               placeholder="Type your message here."
             />
@@ -98,8 +97,8 @@ export function Postdailog({
                 type="file"
                 name="Image"
                 className="hidden"
-                accept="image/* "
-              ></input>
+                accept="image/*"
+              />
               <Button type="submit">Post</Button>
             </div>
           </DialogFooter>
@@ -108,9 +107,9 @@ export function Postdailog({
           onClick={() => {
             inputRef?.current?.click();
           }}
-          className="bg-black hover:bg-black gap-2 "
+          className="bg-black hover:bg-black gap-2"
         >
-          <Images></Images>
+          <ImageIcon />
           <p>Media</p>
         </Button>
       </DialogContent>

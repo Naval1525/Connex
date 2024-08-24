@@ -14,3 +14,4 @@ export const readFileAsDataUrl = (file: File | Blob):Promise<string> => {
     fileReader.readAsDataURL(file);
   })
 }
+

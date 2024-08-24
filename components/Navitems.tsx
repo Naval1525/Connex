@@ -34,6 +34,7 @@ const navItems:NAVITEMS[] = [
 
 const NavItems = () => {
   return (
+
     <div className='flex gap-8'>
         {
             navItems.map((navItem, index)=>{
