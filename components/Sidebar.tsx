@@ -37,7 +37,10 @@ const Sidebar = async ({ user }: { user: any }) => {
         <div className="w-full flex justify-between items-center px-3 py-2 hover:bg-gray-200 cursor-pointer">
           <p>Posts</p>
           <p className="text-blue-500 font-bold">
-            {posts.filter((post) => post.user.userId === user.id).length}
+            {
+              posts.filter((post: any) => post.user.userId === user.id)
+                .length
+            }
           </p>
         </div>
       </div>

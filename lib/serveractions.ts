@@ -106,7 +106,7 @@ export const createCommentAction = async (postId: string, formData: FormData) =>
             user: userDatabase,
         });
 
-        post.comments?.push(comment._id);
+        post.comments?.push(comment._id as any);
         await post.save();
 
         revalidatePath("/");
