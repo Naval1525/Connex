@@ -2,7 +2,7 @@ import React from "react";
 import { Profilephoto } from "./shared/Profilephoto";
 import { getAllPosts } from "@/lib/serveractions";
 
-const Sidebar = async({ user }: { user: any }) => {
+const Sidebar = async ({ user }: { user: any }) => {
   const posts = await getAllPosts();
   return (
     <div className="hidden md:block w-[20%] h-fit border border-gray-300 rounded-lg overflow-hidden">
@@ -26,19 +26,19 @@ const Sidebar = async({ user }: { user: any }) => {
           <h1 className="font-sans font-bold hover:underline cursor-pointer">
             {user ? `${user?.firstName} ${user?.lastName}` : "sign karle bhai"}
           </h1>
-          <p className="text-xs">
-            @{user ? `${user?.username}` : `username`}
-          </p>
+          <p className="text-xs">@{user ? `${user?.username}` : `username`}</p>
         </div>
       </div>
       <div className="text-xs">
-        <div className="w-full flex justify-between items-center px-3 py-2 hover:bg-gray-200 cursor-pointer">
-          {/* <p>Post Impression</p>
-          <p className="text-blue-500 font-bold">88</p> */}
-        </div>
+        {/* <div className="w-full flex justify-between items-center px-3 py-2 hover:bg-gray-200 cursor-pointer">
+          <p>Post Impression</p>
+          <p className="text-blue-500 font-bold">88</p>
+        </div> */}
         <div className="w-full flex justify-between items-center px-3 py-2 hover:bg-gray-200 cursor-pointer">
           <p>Posts</p>
-          <p className="text-blue-500 font-bold">{posts.length}</p>
+          <p className="text-blue-500 font-bold">
+            {posts.filter((post) => post.user.userId === user.id).length}
+          </p>
         </div>
       </div>
     </div>

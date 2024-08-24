@@ -1,5 +1,5 @@
 import mongoose, { Model } from "mongoose";
-import { IUser } from "./User.model";
+import { IUser } from "./user.model";
 import { Document } from "mongoose";
 export interface IComment{
     textMessage:string,

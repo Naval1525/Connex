@@ -1,4 +1,4 @@
-import { ICommentDocument } from '@/models/Comment.model'
+import { ICommentDocument } from '@/models/comment.model'
 import React from 'react'
 
 import ReactTimeago from 'react-timeago'

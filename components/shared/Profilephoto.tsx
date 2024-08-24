@@ -6,7 +6,7 @@ export const Profilephoto = ({ src }: { src: String }) => {
   return (
     <div className="cursor-pointer">
       <Avatar className="w-14 h-14">
-        <AvatarImage src={src} alt="@shadcn" />
+        <AvatarImage src={src as string} alt="@shadcn" />
       </Avatar>
     </div>
   );

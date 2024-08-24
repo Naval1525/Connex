@@ -22,7 +22,7 @@ export function Postdailog({
 }: {
   setopen: any;
   open: any;
-  src: String;
+  src: string;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<string>("");
@@ -60,7 +60,7 @@ export function Postdailog({
       >
         <DialogHeader>
           <DialogTitle className="flex gap-3">
-            <Profilephoto src={src} />
+            <Profilephoto src={src as string} />
             <div>
               <p className="text-sm">Post to anyone</p>
             </div>

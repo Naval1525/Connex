@@ -1,5 +1,5 @@
 import connectDB from "@/lib/db";
-import { Post } from "@/models/Post.model";
+import { Post } from "@/models/post.model";
 import { NextRequest, NextResponse } from "next/server";
 
 // fetch all comments
